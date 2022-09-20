@@ -7,55 +7,83 @@
 70 PRESET(85,40):PRINT #1,"Hockey"
 80 PRESET(35,140):PRINT #1,"<tecle qualquer coisa>"
 90 OP$ = INPUT$(1)
-200 ' *****************************************************
-210 ' DESENHAR OS HUDS
-220 ' *****************************************************
-230 COLOR 13,1,1:CLS
-240 LINE(0,0)-(255,20),7,BF
-250 LINE(0,171)-(255,191),7,BF
-270 PSET(5,7):PRINT #1,"Computador => "
-280 PSET(5,180):PRINT #1,"Jogador => "
-300 ' *****************************************************
-310 ' ESTADO INICIAL
-320 ' *****************************************************
-330 PC = 0 					: ' PONTOS DO COMPUTADOR
-340 PJ = 0					: ' PONTOS DO JOGADOR
-350 GOSUB 10000				: ' ROTINA DE CARGA DOS SPRITES
-360 ' REINICIAR O PONTO 
-370 CX = 120				: ' POSICAO X DO COMPUTADOR
-380 JX = 120				: ' POSICAO X DO JOGADOR
-390 JV = 5 					: ' VELOCIDADE DO JOGADOR
-400 XB = 120				: ' POSICAO X DA BOLA
-410 YB = 94					: ' POSICAO Y DA BOLA
-420 VBX = -5				: ' VELOCIDADE DA BOLA NO EIXO X
-430 VBY = -5    			: ' VELOCIDADE DA BOLA NO EIXO Y 
-450 ONSPRITE GOSUB 9000 	: ' CHECA COLISAO DE SPRITES
-725 SPRITE ON
+100 ' *****************************************************
+110 ' DESENHAR OS HUDS
+120 ' *****************************************************
+130 COLOR 13,1,1:CLS
+140 LINE(0,0)-(255,20),7,BF
+150 LINE(0,171)-(255,191),7,BF
+160 PSET(5,7):PRINT #1,"Computador => "
+170 PSET(5,180):PRINT #1,"Jogador => "
+180 ' *****************************************************
+190 ' ROTINA DE CARGA DOS SPRITES  
+200 ' ***************************************************** 
+220 ' SPRITE DAS PALETAS 
+230 A$(1) = CHR$(&B11111111)
+240 A$(2) = CHR$(&B11111111)
+250 A$(3) = CHR$(&B00000000)
+260 A$(4) = CHR$(&B00000000)
+270 A$(5) = CHR$(&B00000000)
+280 A$(6) = CHR$(&B00000000)
+290 A$(7) = CHR$(&B00000000)
+300 A$(8) = CHR$(&B00000000)
+400 FOR I = 1 TO 8 
+410 	B$ = B$ + A$(I)
+420 NEXT I
+430 SPRITE$(1)=B$
+440 ' SPRITE DA BOLA
+450 A$(1) = CHR$(&B00000000)
+460 A$(2) = CHR$(&B00011000)
+470 A$(3) = CHR$(&B00111100)
+480 A$(4) = CHR$(&B01111110)
+490 A$(5) = CHR$(&B01111110)
+500 A$(6) = CHR$(&B00111100)
+510 A$(7) = CHR$(&B00011000)
+520 A$(8) = CHR$(&B00000000)
+530 FOR I = 1 TO 8 
+540 	C$ = C$ + A$(I)
+550 NEXT I
+560 SPRITE$(2)=C$
+570 ' *****************************************************
+580 ' ESTADO INICIAL
+590 ' *****************************************************
+600 PC = 0 					: ' PONTOS DO COMPUTADOR
+610 PJ = 0					: ' PONTOS DO JOGADOR
+620 ' REINICIAR O PONTO 
+630 CX = 120				: ' POSICAO X DO COMPUTADOR
+640 JX = 120				: ' POSICAO X DO JOGADOR
+650 JV = 5 					: ' VELOCIDADE DO JOGADOR
+660 XB = 120				: ' POSICAO X DA BOLA
+670 YB = 94					: ' POSICAO Y DA BOLA
+680 VBX = -5				: ' VELOCIDADE DA BOLA NO EIXO X
+690 VBY = -5    			: ' VELOCIDADE DA BOLA NO EIXO Y 
+700 ON SPRITE GOSUB 9000 	: ' CHECA COLISAO DE SPRITES
+710 SPRITE ON
 1000 ' *****************************************************
 1010 ' MOVE A BOLA
 1020 ' *****************************************************  
-2030 XB = XB + VBX              : 'ADICIONA VELOCIDADE X A BOLA 
-2040 YB = YB + VBY              : 'ADICIONA VELOCIDADE Y A BOLA
-2050 PUT SPRITE 2,(XB,YB),10,2	: 'POSICIONA A BOLA DO JOGO
-1000 ' *****************************************************
-1010 ' MOVE O COMPUTADOR
-1020 ' ***************************************************** 
-3030 IF VBX < 0 THEN CX = CX - JV ELSE CX = CX + JV 
-3040 PUT SPRITE 0,(CX,25),6,1 	: 'POSICIONA A PALETA DO COMPUTADOR
-4000 ' *****************************************************
-4010 ' MOVE O JOGADOR 
-4020 ' *****************************************************
-4030 CR = STICK(0)
-4040 IF CR = 3 AND JX < 239 THEN JX = JX + JV : GOTO 4060
-4050 IF CR = 7 AND JX > 1 THEN JX = JX - JV
-4060 PUT SPRITE 1,(JX,165),6,1	: ' PALETA DO JOGADOR
-5000 ' *****************************************************
-5010 ' CHECA COLISAO
-5020 ' *****************************************************
-5030 IF YB < 25  	THEN PJ = PJ+1 : GOTO 370 : 'REINICA O PONTO
-5040 IF YB > 165 	THEN PC = PC+1 : GOTO 370 : 'REINICA O PONTO
-5050 IF XB < 1 		THEN VBX = VBX *-1
-5524 IF XB > 254 	THEN VBX = VBX *-1
+1030 XB = XB + VBX              : 'ADICIONA VELOCIDADE X A BOLA 
+1040 YB = YB + VBY              : 'ADICIONA VELOCIDADE Y A BOLA
+1050 PUT SPRITE 2,(XB,YB),10,2	: 'POSICIONA A BOLA DO JOGO
+1060 ' *****************************************************
+1070 ' MOVE O COMPUTADOR
+1080 ' ***************************************************** 
+1090 IF VBX < 0 THEN CX = CX - JV ELSE CX = CX + JV 
+1100 PUT SPRITE 0,(CX,25),6,1 	: 'POSICIONA A PALETA DO COMPUTADOR
+1110 ' *****************************************************
+1120 ' MOVE O JOGADOR 
+1130 ' *****************************************************
+1140 CR = STICK(0)
+1150 IF CR = 3 AND JX < 239 THEN JX = JX + JV : GOTO 4060
+1160 IF CR = 7 AND JX > 1 THEN JX = JX - JV
+1170 PUT SPRITE 1,(JX,165),6,1	: ' PALETA DO JOGADOR
+1180 ' *****************************************************
+1190 ' CHECA COLISAO
+2000 ' *****************************************************
+2010 IF YB < 25  	THEN PJ = PJ+1 : GOTO 620 : 'REINICA O PONTO
+2020 IF YB > 165 	THEN PC = PC+1 : GOTO 620 : 'REINICA O PONTO
+2030 IF XB < 1 		THEN VBX = VBX *-1
+2040 IF XB > 254 	THEN VBX = VBX *-1
 6000 ' *****************************************************
 6010 ' ATUALIZA HUD
 6020 ' *****************************************************
@@ -78,36 +106,7 @@
 9000 ' *****************************************************
 9010 ' COLISAO DE SPRITES 
 9020 ' *****************************************************
-9030 VBX = VBX * -1  
-9040 VBY = VBY * -1 
+9030 SPRITE OFF
+9035 VBX = VBX * -1  
+9040 VBY = VBY * -1  
 9999 RETURN
-10000 ' *****************************************************
-10002 ' ROTINA DE CARGA DOS SPRITES  
-10003 ' ***************************************************** 
-10004 ' SPRITE DAS PALETAS 
-10005 A$(1) = CHR$(&B11111111)
-10010 A$(2) = CHR$(&B11111111)
-10020 A$(3) = CHR$(&B00000000)
-10030 A$(4) = CHR$(&B00000000)
-10040 A$(5) = CHR$(&B00000000)
-10050 A$(6) = CHR$(&B00000000)
-10060 A$(7) = CHR$(&B00000000)
-10070 A$(8) = CHR$(&B00000000)
-10080 FOR I = 1 TO 8 
-10090 	B$ = B$ + A$(I)
-10100 NEXT I
-10110 SPRITE$(1)=B$
-10120 ' SPRITE DA BOLA
-10130 A$(1) = CHR$(&B00000000)
-10140 A$(2) = CHR$(&B00011000)
-10150 A$(3) = CHR$(&B00111100)
-10160 A$(4) = CHR$(&B01111110)
-10170 A$(5) = CHR$(&B01111110)
-10180 A$(6) = CHR$(&B00111100)
-10190 A$(7) = CHR$(&B00011000)
-10200 A$(8) = CHR$(&B00000000)
-10210 FOR I = 1 TO 8 
-10220 	C$ = C$ + A$(I)
-10230 NEXT I
-10240 SPRITE$(2)=C$
-10250 RETURN
