@@ -47,16 +47,16 @@
 570 ' *****************************************************
 580 ' ESTADO INICIAL
 590 ' *****************************************************
-600 PC = 0 					: ' PONTOS DO COMPUTADOR
-610 PJ = 0					: ' PONTOS DO JOGADOR
+600 PC = 0 					      : ' PONTOS DO COMPUTADOR
+610 PJ = 0					      : ' PONTOS DO JOGADOR
 620 ' REINICIAR O PONTO 
-630 CX = 120				: ' POSICAO X DO COMPUTADOR
-640 JX = 120				: ' POSICAO X DO JOGADOR
-650 JV = 5 					: ' VELOCIDADE DO JOGADOR
-660 XB = 120				: ' POSICAO X DA BOLA
-670 YB = 94					: ' POSICAO Y DA BOLA
-680 VBX = -5				: ' VELOCIDADE DA BOLA NO EIXO X
-690 VBY = -5    			: ' VELOCIDADE DA BOLA NO EIXO Y 
+630 CX = 120				      : ' POSICAO X DO COMPUTADOR
+640 JX = 120				      : ' POSICAO X DO JOGADOR
+650 JV = 5 					      : ' VELOCIDADE DO JOGADOR
+660 XB = 120				      : ' POSICAO X DA BOLA
+670 YB = 94					      : ' POSICAO Y DA BOLA
+680 VBX = -5				      : ' VELOCIDADE DA BOLA NO EIXO X
+690 VBY = -5    			    : ' VELOCIDADE DA BOLA NO EIXO Y 
 700 ON SPRITE GOSUB 9000 	: ' CHECA COLISAO DE SPRITES
 710 SPRITE ON
 1000 ' *****************************************************
@@ -74,25 +74,26 @@
 1120 ' MOVE O JOGADOR 
 1130 ' *****************************************************
 1140 CR = STICK(0)
-1150 IF CR = 3 AND JX < 239 THEN JX = JX + JV : GOTO 4060
+1150 IF CR = 3 AND JX < 239 THEN JX = JX + JV : GOTO 1170
 1160 IF CR = 7 AND JX > 1 THEN JX = JX - JV
 1170 PUT SPRITE 1,(JX,165),6,1	: ' PALETA DO JOGADOR
 1180 ' *****************************************************
 1190 ' CHECA COLISAO
 2000 ' *****************************************************
-2010 IF YB < 25  	THEN PJ = PJ+1 : GOTO 620 : 'REINICA O PONTO
-2020 IF YB > 165 	THEN PC = PC+1 : GOTO 620 : 'REINICA O PONTO
+2010 IF YB < 25  	THEN PJ = PJ+1 : GOTO 6000 : 'ATUALIZA HUD
+2020 IF YB > 165 	THEN PC = PC+1 : GOTO 6000 : 'ATUALIZA HUD
 2030 IF XB < 1 		THEN VBX = VBX *-1
 2040 IF XB > 254 	THEN VBX = VBX *-1
+2050 GOTO 1000
 6000 ' *****************************************************
 6010 ' ATUALIZA HUD
 6020 ' *****************************************************
-6030 LINE(115,7)-(130,15),7,BF		: 'LIMPA A AREA 
-6035 PRESET(115,7):PRINT #1,PC		: 'IMPRIME PONTOS DO COMPUTADOR
-6040 LINE(85,180)-(100,188),7,BF	: 'LIMPA A AREA 
-6519 PRESET(85,180):PRINT #1,PJ		: 'IMPRIME OS PONTOS DO JOGADOR
-6759 IF PC = 5 OR PJ = 5 GOTO 8000
-7000 GOTO 1000
+6030 LINE(115,7)-(130,15),7,BF		 : 'LIMPA A AREA 
+6035 PRESET(115,7):PRINT #1,PC		 : 'IMPRIME PONTOS DO COMPUTADOR
+6040 LINE(85,180)-(100,188),7,BF	 : 'LIMPA A AREA 
+6519 PRESET(85,180):PRINT #1,PJ		 : 'IMPRIME OS PONTOS DO JOGADOR
+6759 IF PC = 5 OR PJ = 5 GOTO 8000 : ' ENCERRA O JOGO
+7000 GOTO 620                      : ' REINICIA O PONTO
 8000 ' *****************************************************
 8010 ' FINAL DO JOGO 
 8020 ' *****************************************************
