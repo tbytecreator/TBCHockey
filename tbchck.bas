@@ -8,33 +8,21 @@
 70 PRESET(85,40):PRINT #1,"Hockey"
 80 PRESET(35,140):PRINT #1,"<Tecle qualquer coisa>"
 90 OP$ = INPUT$(1)
-100 ' *****************************************************
+100 ' ***********************
 110 ' DESENHAR OS HUDS
-120 ' *****************************************************
+120 ' ***********************
 130 COLOR 13,1,1:CLS
 140 LINE(0,0)-(255,20),7,BF
 150 LINE(0,171)-(255,191),7,BF
 160 PSET(5,7):PRINT #1,"Computador => "
 170 PSET(5,180):PRINT #1,"Jogador => "
-180 ' *****************************************************
+180 ' ***************************
 190 ' ROTINA DE CARGA DOS SPRITES  
-200 ' ***************************************************** 
+200 ' *************************** 
 220 ' SPRITE DAS PALETAS 
 230 A$(1) = CHR$(&B11111111)
 240 A$(2) = CHR$(&B11111111)
 250 A$(3) = CHR$(&B00000000)
-260 A$(4) = CHR$(&B00000000)
-260 A$(4) = CHR$(&B00000000)
-260 A$(4) = CHR$(&B00000000)
-260 A$(4) = CHR$(&B00000000)
-260 A$(4) = CHR$(&B00000000)
-260 A$(4) = CHR$(&B00000000)
-260 A$(4) = CHR$(&B00000000)
-260 A$(4) = CHR$(&B00000000)
-260 A$(4) = CHR$(&B00000000)
-260 A$(4) = CHR$(&B00000000)
-260 A$(4) = CHR$(&B00000000)
-260 A$(4) = CHR$(&B00000000)
 260 A$(4) = CHR$(&B00000000)
 270 A$(5) = CHR$(&B00000000)
 280 A$(6) = CHR$(&B00000000)
@@ -57,11 +45,11 @@
 540 	C$ = C$ + A$(I)
 550 NEXT I
 560 SPRITE$(2)=C$
-570 ' *****************************************************
+570 ' **************
 580 ' ESTADO INICIAL
-590 ' *****************************************************
-600 PC = 0 					      : ' PONTOS DO COMPUTADOR
-610 PJ = 0					      : ' PONTOS DO JOGADOR
+590 ' **************
+600 PC = 0: ' PONTOS DO COMPUTADOR
+610 PJ = 0: ' PONTOS DO JOGADOR
 620 ' REINICIAR O PONTO 
 630 CX = 120				      : ' POSICAO X DO COMPUTADOR
 640 JX = 120				      : ' POSICAO X DO JOGADOR
@@ -70,7 +58,6 @@
 670 YB = 94					      : ' POSICAO Y DA BOLA
 680 VBX = -5				      : ' VELOCIDADE DA BOLA NO EIXO X
 690 VBY = -5    			    : ' VELOCIDADE DA BOLA NO EIXO Y 
-700 ON SPRITE GOSUB 9000 	: ' CHECA COLISAO DE SPRITES
 1000 ' *****************************************************
 1010 ' MOVE A BOLA
 1020 ' *****************************************************  
@@ -92,10 +79,12 @@
 1180 ' *****************************************************
 1190 ' CHECA COLISAO
 2000 ' *****************************************************
-2010 IF YB < 20  	THEN PJ = PJ+1 : GOTO 6000 : 'ATUALIZA HUD
-2020 IF YB > 175 	THEN PC = PC+1 : GOTO 6000 : 'ATUALIZA HUD
-2030 IF XB < 1 		THEN VBX = VBX *-1
-2040 IF XB > 254 	THEN VBX = VBX *-1
+2010 IF YB<20 THEN PJ=PJ+1 : GOTO 6000 : 'ATUALIZA HUD
+2020 IF YB>175 THEN PC=PC+1 : GOTO 6000 : 'ATUALIZA HUD
+2030 IF XB<1 THEN VBX=VBX*-1
+2040 IF XB>254 THEN VBX=VBX*-1
+2045 ON SPRITE GOSUB 9000
+2047 SPRITE ON 
 2050 GOTO 1000
 6000 ' *****************************************************
 6010 ' ATUALIZA HUD
@@ -116,11 +105,12 @@
 8065 CLOSE #1
 8070 IF OP$ = "s" OR OP$ = "S" THEN GOTO 40   
 8999 END
-9000 ' *****************************************************
+9000 ' ******************
 9010 ' COLISAO DE SPRITES 
-9020 ' *****************************************************
-9030 VBX = VBX * -1  
-9040 VBY = VBY * -1
-9050 XB = XB + VBX
-9060 YB = YB + VBY 
+9020 ' ******************
+9025 SPRITE OFF
+9030 VBX=VBX*-1  
+9040 VBY=VBY*-1
+9050 XB=XB+VBX
+9060 YB=YB+VBY 
 9070 RETURN
