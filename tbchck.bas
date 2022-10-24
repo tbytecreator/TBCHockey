@@ -70,7 +70,6 @@
 680 VBX = -5				      : ' VELOCIDADE DA BOLA NO EIXO X
 690 VBY = -5    			    : ' VELOCIDADE DA BOLA NO EIXO Y 
 700 ON SPRITE GOSUB 9000 	: ' CHECA COLISAO DE SPRITES
-710 SPRITE ON
 1000 ' *****************************************************
 1010 ' MOVE A BOLA
 1020 ' *****************************************************  
