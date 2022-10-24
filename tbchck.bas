@@ -69,9 +69,9 @@
 1080 ' ***************** 
 1090 IF VBX < 0 THEN CX = CX - JV ELSE CX = CX + JV 
 1100 PUT SPRITE 0,(CX,25),6,1 	: 'POSICIONA A PALETA DO COMPUTADOR
-1110 ' *****************************************************
+1110 ' **************
 1120 ' MOVE O JOGADOR 
-1130 ' *****************************************************
+1130 ' **************
 1140 CR = STICK(0)
 1150 IF CR = 3 AND JX < 239 THEN JX = JX + JV : GOTO 1170
 1160 IF CR = 7 AND JX > 1 THEN JX = JX - JV
@@ -113,4 +113,5 @@
 9040 VBY=VBY*-1
 9050 XB=XB+VBX
 9060 YB=YB+VBY 
+9065 PUT SPRITE 2,(XB,YB),10,2: 'POSICIONA A BOLA DO JOGO
 9070 RETURN
