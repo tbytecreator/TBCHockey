@@ -1,11 +1,12 @@
-10 ' *****************************************************
-20 ' TBC Hockey - Manoel Neto - 2022-09-20
-30 ' *****************************************************
+10 ' *************************
+20 ' TBC Hockey - Manoel Neto 
+25 ' 2022-09-20
+30 ' *************************
 40 DEFINT A-Z:SCREEN 2:COLOR 7,1,1:KEY OFF:CLS
 50 OPEN "GRP:" FOR OUTPUT AS #1
 60 PRESET(40,30):PRINT #1,"[TByteCreator]"
 70 PRESET(85,40):PRINT #1,"Hockey"
-80 PRESET(35,140):PRINT #1,"<tecle qualquer coisa>"
+80 PRESET(35,140):PRINT #1,"<Tecle qualquer coisa>"
 90 OP$ = INPUT$(1)
 100 ' *****************************************************
 110 ' DESENHAR OS HUDS
