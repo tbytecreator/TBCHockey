@@ -121,7 +121,6 @@
 9020 ' *****************************************************
 9030 VBX = VBX * -1  
 9040 VBY = VBY * -1
-9050 IF VBY < 0 THEN VBY=VBY-1 ELSE VBY=VBY+1
 9050 XB = XB + VBX
 9060 YB = YB + VBY 
-9999 RETURN
+9070 RETURN
